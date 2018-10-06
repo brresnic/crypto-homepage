@@ -1,7 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
+h1 {
+    font-size: 20px;
+    padding: 20px 4px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+p {
+    padding: 4px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.2;
+    max-width: 500px;
+    text-align: left;
+}
+
 #App {
   text-align: center;
   color: #DCDCDD;
   background-color: #46494C;
+}
+
+.Header {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #46494C;
+  border-bottom: 2px solid white;
+}
+
+.Header p {
+  margin: 0 auto;
+  padding: 12px 0 24px 0;
 }
 
 #MainContentContainer {
@@ -9,3 +41,18 @@
   justify-content: center;
 }
 
+.TopCryptoCard {
+  background-color: #DCDCDD;
+  border-radius: 4px;
+  margin: 0 auto;
+  color: #46494C;
+  height: 55px;
+  display: flex;
+  cursor: pointer;
+}
+
+.TopCryptoCard div {
+  width: 16px;
+  height: 55px;
+  border-radius: 4px 0 0 4px;
+}

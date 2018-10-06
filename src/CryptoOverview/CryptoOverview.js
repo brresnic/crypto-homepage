@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import './CryptoOverview.css';
 
-class CryptoOverview extends Component {
+export default class CryptoOverview extends Component {
 
   render() {
       return (
-          <div id="Overview">
+          <div class="Overview">
+
           </div>
       );
   }
 }
-
-export default CryptoOverview;

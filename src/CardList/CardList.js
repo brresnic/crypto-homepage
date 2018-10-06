@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './CardList.css';
 import CryptoCard from '../CryptoCard'; // A card containing info on a crypto
 
-class CardList extends Component {
+export default class CardList extends Component {
 
   render() {
       // Create an array of crypto cards from the data
@@ -14,11 +14,10 @@ class CardList extends Component {
       });
 
       return (
-          <div id="CardList">
+          <div class="CardList">
               {cards}
           </div>
       );
   }
 }
 
-export default CardList;
