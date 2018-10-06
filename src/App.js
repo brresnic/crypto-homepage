@@ -21,16 +21,14 @@
 ***************/
 
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import CardList from './CardList';
-import CryptoCard from './CryptoCard';
-
+import CryptoOverview from './CryptoOverview'; // An overview of cryptos
+import CardList from './CardList'; // A list of the top 50 cryptos
 
 class App extends Component {
   constructor(props) {
       super(props);
-      this.state = {cryptoCards: []};
+      this.state = {cryptosData: []};
   }
 
   componentDidMount() {
@@ -38,26 +36,22 @@ class App extends Component {
       fetch("http://coincap.io/front").then(response => {
           return response.json();
       }).then( data => {
-              // Filter down on the top 50 results
-              let topCryptos = data.slice(0,50);
+            // TODO generate color from green to red
+            // https://codepen.io/njmcode/pen/axoyD/
 
-              // Create an array of crypto cards from the data
-              let cards = topCryptos.map((cryptoDataResult) => {
-                console.log(cryptoDataResult);
-                return (
-                   <CryptoCard data={cryptoDataResult}/>
-                )
-              });
-
-              this.setState({cryptoCards: cards});
+            // Filter down on the top 50 results and update state
+            this.setState({cryptosData: data.slice(0,50)});
           });
   }
 
   render() {
       return (
-          <div className="App">
+          <div id="App">
             <h1> Top Cryptos </h1>
-            <CardList cards={this.state.cryptoCards}/>
+            <div id="MainContentContainer">
+              <CryptoOverview data={this.state.cryptosData}/>
+              <CardList data={this.state.cryptosData}/>
+            </div>
           </div>
       );
   }
