@@ -6,7 +6,7 @@ import './LineChart.css';
 export default class LineChart extends Component {
 
   static defaultProps = {
-    data: [],
+    data: false,
     cryptoName: ""
   };
 
@@ -15,40 +15,44 @@ export default class LineChart extends Component {
   }
 
   componentDidUpdate(prevProps) {
-        Highcharts.chart(this.id, {
-        chart: {
-            type: 'line',
-            backgroundColor: '#DCDCDD'
-        },
-        credits: {
-          enabled: false
-        },
-        title: {
-            text: ''
-        },
-        xAxis: {
-          type: 'datetime',
-        },
-        tooltip: {
-          valueDecimals: 2,
-          valuePrefix: '$',
-          valueSuffix: ' USD'
-        },
-        yAxis: {
-            title: {
-                text: ''
-            },
-            labels: {
-              formatter: function() {
-                  return '$'+this.value;
+    if(this.props.data) {
+      if(this.props.data !== prevProps.data) {
+          Highcharts.chart(this.id, {
+          chart: {
+              type: 'line',
+              backgroundColor: '#DCDCDD'
+          },
+          credits: {
+            enabled: false
+          },
+          title: {
+              text: ''
+          },
+          xAxis: {
+            type: 'datetime',
+          },
+          tooltip: {
+            valueDecimals: 2,
+            valuePrefix: '$',
+            valueSuffix: ' USD'
+          },
+          yAxis: {
+              title: {
+                  text: ''
+              },
+              labels: {
+                formatter: function() {
+                    return '$'+this.value;
+                }
               }
-            }
-        },
-        series: [{
-            name: this.props.cryptoName + ' price over time',
-            data: this.props.data
-        }]
-    });
+          },
+          series: [{
+              name: this.props.cryptoName + ' price over time',
+              data: this.props.data
+          }]
+        });      
+      }
+    }
   }
 
 

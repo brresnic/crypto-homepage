@@ -20,18 +20,22 @@ p {
   background-color: #FFFFFF;
 }
 
-.Header {
-  display: flex;
-  flex-direction: column;
+
+.header {
   position: fixed;
   z-index: 3;
-  width: 100%;
-  box-sizing: border-box;
   background-color: #46494C;
   border-bottom: 2px solid white;
 }
 
-.Header p {
+.legend {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.legend p {
   margin: 0 auto;
   padding: 12px 0 24px 0;
 }

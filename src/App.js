@@ -61,11 +61,18 @@ export default class App extends Component {
   render() {
       return (
           <div id="App">
-            <div className="Header">
+            <div className="header">
               <h1> Crypto of the Day: </h1>
-              <div className="TopCryptoCard">
-                <div style={{backgroundColor: this.state.topCrypto.color}}> </div>
-                <h1>{this.state.topCrypto.long} </h1>
+              <div  className="legend">
+                <div className="topCryptoCard">
+                  <div style={{backgroundColor: this.state.topCrypto.color}}> </div>
+                  <h1>{this.state.topCrypto.long} </h1>
+                </div>
+                <div className="colorBlock"> </div>
+                <div className="topCryptoCard">
+                  <div style={{backgroundColor: this.state.topCrypto.color}}> </div>
+                  <h1>{this.state.topCrypto.long} </h1>
+                </div>
               </div>
               <p> The chart below shows the top 50 cryptos by marketcap. Color coding describes each crypto's daily return, relative to the rest of the cohort. </p>
             </div>

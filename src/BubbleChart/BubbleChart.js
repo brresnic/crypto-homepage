@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
+import './BubbleChart.css';
 
 export default class BubbleChart extends Component {
   constructor(props){
