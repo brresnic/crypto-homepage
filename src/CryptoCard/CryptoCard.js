@@ -32,7 +32,7 @@ const ArrowIcon = ({ className, stroke }) => (
 export default class CryptoCard extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {isOpened: false, hasOpened: false, visData: []};
+      this.state = {isOpened: false, hasOpened: false, visData: false};
       this.handleClick = this.handleClick.bind(this);
   }
 
