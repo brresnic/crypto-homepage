@@ -1,6 +1,8 @@
-#overview {
-  min-width: 500px;
-  position: fixed;
-  top: 270px;
-  right: 100px;
+.overview {
+	flex-grow: 4;
+	height:  100vh;
+}
+
+.bubbleContainer {
+	position: fixed;
 }

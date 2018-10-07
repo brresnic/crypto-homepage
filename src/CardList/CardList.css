@@ -1,8 +1,7 @@
 .CardList {
     display: flex;
     flex-direction: column;
-    max-width: 700px;
     padding: 20px;
     position: relative;
-    top: 210px;
+    top: 265px;
 }

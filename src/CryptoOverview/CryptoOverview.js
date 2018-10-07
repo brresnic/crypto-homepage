@@ -5,7 +5,7 @@ import './CryptoOverview.css';
 export default class CryptoOverview extends Component {
   constructor(props) {
       super(props);
-      this.state = {width: 500, height: 500};
+      this.state = {visWidth: 500, visHeight: 500};
   }
 
 
@@ -15,10 +15,11 @@ export default class CryptoOverview extends Component {
 
 
   componentDidMount() {
-    const height = document.getElementById('overview').clientHeight;
-    const width = document.getElementById('overview').clientWidth;
+    const height = document.getElementsByClassName('overview')[0].clientHeight;
+    console.log(height);
+    const width = document.getElementsByClassName('overview')[0].clientWidth;
 
-    this.setState({height: height, width: width});
+    this.setState({visHeight: height, visWidth: width*.8});
   }
 
   render() {
@@ -31,34 +32,35 @@ export default class CryptoOverview extends Component {
 	  value: d.mktcap,
 	  color: d.color
 	}));
-	console.log(this.state.width);
 
 	return (
-      <div id="overview">
-		<BubbleChart
-		  graph= {{
-		    zoom: 1,
-		    offsetX: -0.05,
-		    offsetY: -0.01,
-		  }}
-		  width={this.state.width}
-		  height={this.state.height}
-		  showLegend={false} 
-		  valueFont={{
-		        family: 'Arial',
-		        size: 12,
-		        color: '#fff',
-		        weight: 'bold',
-		      }}
-		  labelFont={{
-		        family: 'Arial',
-		        size: 16,
-		        color: '#fff',
-		        weight: 'bold',
-		      }}
-		  bubbleClickFunc={this.bubbleClick}
-		  data={bubbleData}
-		/>
+      <div class="overview" style={{padding: this.state.visHeight*.0625+"px " +this.state.visWidth*.0625 +"px"}}>
+      	<div class="bubbleContainer">
+			<BubbleChart
+			  graph= {{
+			    zoom: 1,
+			    offsetX: 0,
+			    offsetY: -0.01,
+			  }}
+			  width={this.state.visWidth}
+			  height={this.state.visHeight}
+			  showLegend={false} 
+			  valueFont={{
+			        family: 'Arial',
+			        size: 12,
+			        color: '#fff',
+			        weight: 'bold',
+			      }}
+			  labelFont={{
+			        family: 'Arial',
+			        size: 16,
+			        color: '#fff',
+			        weight: 'bold',
+			      }}
+			  bubbleClickFunc={this.bubbleClick}
+			  data={bubbleData}
+			/>
+		</div>
       </div>
   );
   }

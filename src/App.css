@@ -10,29 +10,37 @@ p {
     padding: 4px 16px;
     font-family: 'Roboto', sans-serif;
     line-height: 1.2;
-    max-width: 800px;
     text-align: left;
 }
 
-#App {
+#app {
   text-align: center;
   color: #DCDCDD;
   background-color: #FFFFFF;
+  display: flex;
+  justify-content: flex-start;
+  color: #46494C;
 }
 
+.feed {
+  flex-basis: 630px;
+}
 
 .header {
   position: fixed;
   z-index: 3;
-  background-color: #46494C;
-  border-bottom: 2px solid white;
+  background-color: white;
+  width: 630px;
+}
+
+.header.scrolling {
+  box-shadow: 0 4px 2px -2px rgba(57, 63, 72, 0.3);
 }
 
 .legend {
-  width: 100%;
-  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  padding: 30px 0;
 }
 
 .legend p {
@@ -40,18 +48,18 @@ p {
   padding: 12px 0 24px 0;
 }
 
-.TopCryptoCard {
+.legendCard {
   background-color: #DCDCDD;
   border-radius: 4px;
-  margin: 0 auto;
-  color: #46494C;
-  height: 55px;
   display: flex;
   cursor: pointer;
 }
 
-.TopCryptoCard div {
+.legendCard span {
   width: 16px;
-  height: 55px;
-  border-radius: 4px 0 0 4px;
+}
+
+.colorBlock {
+  width: 120px;
+  background: linear-gradient(90deg, rgba(175,206,255,1) 0%, rgba(22,67,140,1) 100%);
 }
