@@ -6,15 +6,14 @@ export default class CardList extends Component {
 
   render() {
       // Create an array of crypto cards from the data
-      let cards = this.props.data.map((cryptoDataResult) => {
-        console.log(cryptoDataResult);
+      const cards = this.props.data.map((cryptoDataResult, index) => {
         return (
-           <CryptoCard data={cryptoDataResult}/>
+           <CryptoCard data={cryptoDataResult} key={index}/>
         )
       });
 
       return (
-          <div class="CardList">
+          <div className="CardList">
               {cards}
           </div>
       );

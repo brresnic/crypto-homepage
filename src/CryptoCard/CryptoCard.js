@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './CryptoCard.css';
 import LineChart from '../LineChart';
+import Collapse from 'react-collapse';
+import cx from 'classnames';
 
-const CollapseCardIcon = ({ className, stroke }) => (
+const ArrowIcon = ({ className, stroke }) => (
   <a href="javascript:;">
     <svg
       aria-label="Close Result Card"
@@ -24,40 +26,87 @@ const CollapseCardIcon = ({ className, stroke }) => (
 
 // For each cryptocurrency, display
 // name, symbol, icon, price, market cap,
-// and market movement (has the price/volume gone up/down?),
-// and optionally other desired info
+// and market movement (has the price/volume gone up/down?).
+// 
+// When card is open, display a line chart and some additional info.
 export default class CryptoCard extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {opened: false};
+      this.state = {isOpened: false, hasOpened: false, visData: []};
+      this.handleClick = this.handleClick.bind(this);
   }
-    // todo: up or down?
-    // todo: icon
-    render() {
 
-      // Appropriately round the price
-      if(this.props.data.price > 100) {
-        this.props.data.price = Math.round(this.props.data.price);
-      } else if(this.props.data.price > 1) {
-        this.props.data.price = Math.round(100 * this.props.data.price) / 100;
-      } else {
-        this.props.data.price = Math.round(1000 * this.props.data.price) / 1000;
-      }
-
-      return (
-        <div class="Card Closed">
-          <div style={{backgroundColor: this.props.data.color}} class='CardHeader'>
-            <div class="CollapseIcon">
-              <CollapseCardIcon stroke={'#FFFFFF'} />
-            </div>
-          </div>
-          <h1>{this.props.data.long} ({this.props.data.short})</h1>
-          <p>Price: ${this.props.data.price}</p>
-          <p>Market Cap: ${abbrNum(this.props.data.mktcap,2)}</p>
-          <LineChart />
-        </div>
-      );
+  handleClick() {
+    // when first opened, load the line chart
+    if(!this.state.hasOpened) {
+      fetch("http://coincap.io/history/"+this.props.data.short).then(response => {
+          return response.json();
+      }).then( data => {
+        const refinedData = data.price.map((datapoint) => {
+        return (
+          [datapoint[0],roundNum(datapoint[1])]
+        )
+        });
+        this.setState({visData: refinedData});
+      });
     }
+
+    this.setState(state => ({
+      isOpened: !state.isOpened,
+      hasOpened: true
+    }));
+  }
+
+  // todo: up or down?
+  // todo: icon
+  render() {
+
+    const arrowStyle = cx({
+      'collapseIcon': true,
+      'rotate': this.state.isOpened,
+    });
+
+    return (
+      <div className="Card" onClick={this.handleClick}>
+        <div style={{backgroundColor: this.props.data.color}} className='CardHeader'>
+          <div className={arrowStyle}>
+            <ArrowIcon stroke={'#FFFFFF'} />
+          </div>
+        </div>
+        <div className="summary">
+          <div>
+            <h1>{this.props.data.long} ({this.props.data.short})</h1>
+            <p>Price: ${roundNum(this.props.data.price)}</p>
+            <p>Market Cap: ${abbrNum(this.props.data.mktcap,2)}</p>
+          </div>
+          <div>
+            <h1>{this.props.data.perc}%</h1>
+          </div>
+        </div>
+
+        <Collapse
+          isOpened={this.state.isOpened}
+          springConfig={{ stiffness: 200, damping: 23, precision: 0.2 }}>
+          <p>Volume: ${abbrNum(this.props.data.volume,2)}</p>
+          <p>Supply: ${abbrNum(this.props.data.supply,2)}</p>
+          <p> Volume Weighted Price: ${roundNum(this.props.data.vwapData)} </p>
+          <LineChart data={this.state.visData} cryptoName={this.props.data.short}/>
+        </Collapse>
+      </div>
+    );
+  }
+}
+
+// Round numbers differently, depending on their order of magnitude
+function roundNum(price) {
+  if(price > 100) {
+    price = Math.round(price);
+  } else if(price > 1) {
+    price = Math.round(100 * price) / 100;
+  } else {
+    price = Math.round(1000 * price) / 1000;
+  }
+  return price;
 }
 
 // This function rounds market caps, appending units
@@ -77,7 +126,7 @@ function abbrNum(number, decPlaces) {
              // This gives us nice rounding to a particular decimal place.
              number = Math.round(number*decPlaces/size)/decPlaces;
              // Handle special case where we round up to the next abbreviation
-             if((number == 1000) && (i < abbrev.length - 1)) {
+             if((number === 1000) && (i < abbrev.length - 1)) {
                  number = 1;
                  i++;
              }

@@ -50,7 +50,7 @@ export default class App extends Component {
             const max = topCryptos.reduce((max, p) => p.perc > max ? p.perc : max, topCryptos[0].perc);
             for (let i = 0; i < topCryptos.length; i++) {
               topCryptos[i].color = interpolateColors("#f44242","#41f45c",((topCryptos[i].perc - min)/max));
-              if(max == topCryptos[i].perc) topCrypto = topCryptos[i]; // keep track of top performing crypto
+              if(max === topCryptos[i].perc) topCrypto = topCryptos[i]; // keep track of top performing crypto
             }
 
             // Filter down on the top 50 results and update state
@@ -61,13 +61,13 @@ export default class App extends Component {
   render() {
       return (
           <div id="App">
-            <div class="Header">
+            <div className="Header">
               <h1> Crypto of the Day: </h1>
-              <div class="TopCryptoCard">
+              <div className="TopCryptoCard">
                 <div style={{backgroundColor: this.state.topCrypto.color}}> </div>
                 <h1>{this.state.topCrypto.long} </h1>
               </div>
-              <p> The chart below shows the top 50 cryptos by marketcap. Color coding describes each crypto's daily return, relative to today's top performer. </p>
+              <p> The chart below shows the top 50 cryptos by marketcap. Color coding describes each crypto's daily return, relative to the rest of the cohort. </p>
             </div>
             <div id="MainContentContainer">
               <CryptoOverview data={this.state.cryptosData}/>

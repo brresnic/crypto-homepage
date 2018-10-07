@@ -5,40 +5,58 @@ import './LineChart.css';
 
 export default class LineChart extends Component {
 
+  static defaultProps = {
+    data: [],
+    cryptoName: ""
+  };
+
   componentWillMount() {
     this.id = UUID.v4();
   }
 
-  componentDidMount() {
-    Highcharts.chart(this.id, {
+  componentDidUpdate(prevProps) {
+        Highcharts.chart(this.id, {
         chart: {
-            type: 'bar'
+            type: 'line',
+            backgroundColor: '#DCDCDD'
+        },
+        credits: {
+          enabled: false
         },
         title: {
-            text: 'Placeholder Bar Graph'
+            text: ''
         },
         xAxis: {
-            categories: ['Lorum', 'Ipsum', 'Oranges']
+          type: 'datetime',
+        },
+        tooltip: {
+          valueDecimals: 2,
+          valuePrefix: '$',
+          valueSuffix: ' USD'
         },
         yAxis: {
             title: {
-                text: 'Fruit eaten'
+                text: ''
+            },
+            labels: {
+              formatter: function() {
+                  return '$'+this.value;
+              }
             }
         },
         series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
+            name: this.props.cryptoName + ' price over time',
+            data: this.props.data
         }]
     });
   }
 
-  render() {
 
+  render() {
       return (
           <div id={this.id}>
+            <div id={this.id}></div>
+            <div className="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
           </div>
       );
   }

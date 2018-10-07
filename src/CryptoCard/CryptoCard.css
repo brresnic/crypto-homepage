@@ -9,15 +9,35 @@
   overflow: hidden;
 }
 
-.Card.Closed {
-  height: 135px;
-}
-
 .CardHeader {
   border-radius: 4px 4px 0 0;
-  height: 24px;
+  height: 28px;
 }
 
-.CollapseIcon {
-  padding: 4px 5px;
+.collapseIcon {
+  padding: 8px 16px;
+}
+
+/**
+ * Set our base rotation style, knowing that any transition in state will have
+ * a specific easing and will start at a rotation of `180`
+ */
+.collapseIcon svg {
+  transform: rotate(180deg);
+  transition: 0.3s all ease;
+}
+
+/**
+ * Rotate our icon 180 degrees
+ */
+.rotate svg {
+  transform: rotate(360deg);
+}
+
+.summary {
+  display: flex;
+}
+
+.summary div:nth-child(2) h1 {
+  font-size: 30px;
 }
