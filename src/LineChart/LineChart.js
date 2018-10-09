@@ -56,7 +56,7 @@ export default class LineChart extends Component {
 
   componentDidUpdate(prevProps) {
     if(this.props.data) {
-              Highcharts.chart(this.id, {
+          Highcharts.chart(this.id, {
           chart: {
               type: 'line',
               backgroundColor: '#DCDCDD'

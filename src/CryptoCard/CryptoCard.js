@@ -51,14 +51,15 @@ export default class CryptoCard extends React.Component {
       });
     }
 
+    // let the app know that the card is open
+    if(!this.state.isOpened)  {}
+
     this.setState(state => ({
       isOpened: !state.isOpened,
       hasOpened: true
     }));
   }
 
-  // todo: up or down?
-  // todo: icon
   render() {
 
     const arrowStyle = cx({
@@ -67,29 +68,29 @@ export default class CryptoCard extends React.Component {
     });
 
     return (
-      <div className="Card" onClick={this.handleClick}>
-        <div style={{backgroundColor: this.props.data.color}} className='CardHeader'>
+      <div className="card" onClick={this.handleClick}>
+        <div style={{backgroundColor: this.props.data.color}} className='cardHeader'>
           <div className={arrowStyle}>
             <ArrowIcon stroke={'#FFFFFF'} />
           </div>
         </div>
         <div className="summary">
           <div>
-            <h1>{this.props.data.long} ({this.props.data.short})</h1>
-            <p>Price: ${roundNum(this.props.data.price)}</p>
-            <p>Market Cap: ${abbrNum(this.props.data.mktcap,2)}</p>
+            <h2>{this.props.data.long} ({this.props.data.short})</h2>
+            <p>Price: <span>${roundNum(this.props.data.price)}</span></p>
+            <p>Market Cap:<span> ${abbrNum(this.props.data.mktcap,2)}</span></p>
           </div>
           <div>
-            <h1>{this.props.data.perc}%</h1>
+            <h4>{this.props.data.perc}%</h4>
           </div>
         </div>
 
         <Collapse
           isOpened={this.state.isOpened}
           springConfig={{ stiffness: 200, damping: 23, precision: 0.2 }}>
-          <p>Volume: ${abbrNum(this.props.data.volume,2)}</p>
-          <p>Supply: ${abbrNum(this.props.data.supply,2)}</p>
-          <p> Volume Weighted Price: ${roundNum(this.props.data.vwapData)} </p>
+          <p>Volume: <span> ${abbrNum(this.props.data.volume,2)}</span></p>
+          <p>Supply: <span>${abbrNum(this.props.data.supply,2)}</span></p>
+          <p> Volume Weighted Price: <span>${roundNum(this.props.data.vwapData)}</span> </p>
           <LineChart data={this.state.visData} cryptoName={this.props.data.short}/>
         </Collapse>
       </div>

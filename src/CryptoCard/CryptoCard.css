@@ -1,4 +1,4 @@
-.Card {
+.card {
   text-align: left;
   min-width: 550px;
   background-color: #DCDCDD;
@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.CardHeader {
+.cardHeader {
   border-radius: 4px 4px 0 0;
   height: 28px;
 }
@@ -23,7 +23,7 @@
  * a specific easing and will start at a rotation of `180`
  */
 .collapseIcon svg {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
   transition: 0.3s all ease;
 }
 
@@ -31,13 +31,16 @@
  * Rotate our icon 180 degrees
  */
 .rotate svg {
-  transform: rotate(360deg);
+  transform: rotate(180deg);
 }
 
 .summary {
   display: flex;
 }
 
-.summary div:nth-child(2) h1 {
-  font-size: 30px;
+.summary div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 2;
 }

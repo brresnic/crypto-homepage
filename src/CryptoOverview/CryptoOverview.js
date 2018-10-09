@@ -20,12 +20,14 @@ export default class CryptoOverview extends Component {
     const width = document.getElementsByClassName('overview')[0].clientWidth;
 
     this.setState({visHeight: height, visWidth: width*.8});
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(label) {
+  	console.log(label);
   }
 
   render() {
-	const bubbleClick = (label) =>{
-	  console.log("Custom bubble click func")
-	}
 
 	const bubbleData = this.props.data.map(d => ({
 	  label: d.short,
@@ -57,7 +59,7 @@ export default class CryptoOverview extends Component {
 			        color: '#fff',
 			        weight: 'bold',
 			      }}
-			  bubbleClickFunc={this.bubbleClick}
+			  bubbleClickFun={(label) => {this.handleClick(label)}}
 			  data={bubbleData}
 			/>
 		</div>

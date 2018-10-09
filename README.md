@@ -35,3 +35,4 @@ If I were to continue working on this repo, some things I would do include:
 2. Improve error handling (for example, while fetching data)
 3. Refactor components a bit for reusability/extensibility
 4. Make the page responsive, and mobile friendly
+5. Add placeholder content while data is loading
