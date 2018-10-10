@@ -113,11 +113,13 @@ export default class BubbleChart extends Component {
       .style("fill", function(d) { return d.data.color ? d.data.color : color(nodes.indexOf(d)); })
       .style("z-index", 1)
       .on('mouseover', function(d) {
-        d3.select(this).attr("r", d.r * 1.00);
+        //d3.select(this).classed('hover', true);
+        //d3.select(this).attr("r", d.r * 1.00);
       })
       .on('mouseout', function(d) {
         const r = d.r - (d.r * 0.04);
-        d3.select(this).attr("r", r);
+        //d3.select(this).classed('hover', false);
+        //d3.select(this).attr("r", d.r * 1.00);
       });
 
     node.append("clipPath")

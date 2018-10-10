@@ -59,7 +59,8 @@ export default class LineChart extends Component {
           Highcharts.chart(this.id, {
           chart: {
               type: 'line',
-              backgroundColor: '#DCDCDD'
+              backgroundColor: '#DCDCDD',
+              height: 280
           },
           credits: {
             enabled: false
@@ -96,8 +97,7 @@ export default class LineChart extends Component {
 
   render() {
       return (
-          <div id={this.id}>
-            <div id={this.id}></div>
+          <div id={this.id} style={{paddingTop: "20px"}}>
             <div className="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
           </div>
       );

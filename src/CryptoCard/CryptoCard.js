@@ -3,6 +3,8 @@ import './CryptoCard.css';
 import LineChart from '../LineChart';
 import Collapse from 'react-collapse';
 import cx from 'classnames';
+import PropTypes from "prop-types";
+import {default as UUID} from "node-uuid";
 
 const ArrowIcon = ({ className, stroke }) => (
   <a href="javascript:;">
@@ -32,43 +34,66 @@ const ArrowIcon = ({ className, stroke }) => (
 export default class CryptoCard extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {isOpened: false, hasOpened: false, visData: false};
-      this.handleClick = this.handleClick.bind(this);
+      this.state = {hasOpened: false, visData: false};
+  }
+  
+  static contextTypes = {
+    scroll: PropTypes.object,
   }
 
-  handleClick() {
-    // when first opened, load the line chart
-    if(!this.state.hasOpened) {
-      fetch("http://coincap.io/history/"+this.props.data.short).then(response => {
+  componentWillMount() {
+    this.id = UUID.v4();
+  }
+
+  componentDidMount() {
+    console.log('i',this.id);
+    let object = this.refs[this.id];
+    this.props.registerCard(this.props.data.short, object, this.props.index);
+    //this.context.scroll.register();
+  }
+  componentWillUnmount() {
+    this.props.unregisterCard(this.props.data.short);
+    //this.context.scroll.unregister(this.props.data.short);
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.isSelected == true) {
+      
+      // if the line visualization has been loaded yet, load it
+      if(!this.state.hasOpened) {
+        fetch("http://coincap.io/history/"+this.props.data.short).then(response => {
           return response.json();
-      }).then( data => {
-        const refinedData = data.price.map((datapoint) => {
-        return (
-          [datapoint[0],roundNum(datapoint[1])]
-        )
+        }).then( data => {
+          const refinedData = data.price.map((datapoint) => {
+          return (
+            [datapoint[0],roundNum(datapoint[1])]
+          )
+          });
+          this.setState({visData: refinedData});
         });
-        this.setState({visData: refinedData});
-      });
+
+        this.setState(state => ({
+          hasOpened: true
+        }));     
+      }
     }
-
-    // let the app know that the card is open
-    if(!this.state.isOpened)  {}
-
-    this.setState(state => ({
-      isOpened: !state.isOpened,
-      hasOpened: true
-    }));
   }
 
   render() {
 
     const arrowStyle = cx({
       'collapseIcon': true,
-      'rotate': this.state.isOpened,
+      'rotate': this.props.isSelected,
+    });
+
+    const cardStyle = cx({
+      'card' : true,
+      'selected' : this.props.isSelected
     });
 
     return (
-      <div className="card" onClick={this.handleClick}>
+      <div ref={this.id} className={cardStyle} onClick={() => this.props.isSelected ? this.props.onSelectCrypto(null) : this.props.onSelectCrypto(this.props.data.short)}>
         <div style={{backgroundColor: this.props.data.color}} className='cardHeader'>
           <div className={arrowStyle}>
             <ArrowIcon stroke={'#FFFFFF'} />
@@ -76,22 +101,25 @@ export default class CryptoCard extends React.Component {
         </div>
         <div className="summary">
           <div>
-            <h2>{this.props.data.long} ({this.props.data.short})</h2>
-            <p>Price: <span>${roundNum(this.props.data.price)}</span></p>
+            <h2>{(this.props.index + 1)}. <span>{this.props.data.long} ({this.props.data.short})</span></h2>
             <p>Market Cap:<span> ${abbrNum(this.props.data.mktcap,2)}</span></p>
+            <p>Price: <span>${roundNum(this.props.data.price)}</span></p>
           </div>
           <div>
             <h4>{this.props.data.perc}%</h4>
+            <p> Daily Return </p>
           </div>
         </div>
 
         <Collapse
-          isOpened={this.state.isOpened}
+          isOpened={this.props.isSelected}
           springConfig={{ stiffness: 200, damping: 23, precision: 0.2 }}>
-          <p>Volume: <span> ${abbrNum(this.props.data.volume,2)}</span></p>
-          <p>Supply: <span>${abbrNum(this.props.data.supply,2)}</span></p>
-          <p> Volume Weighted Price: <span>${roundNum(this.props.data.vwapData)}</span> </p>
-          <LineChart data={this.state.visData} cryptoName={this.props.data.short}/>
+          <div className='belowTheFold'>
+            <p>Volume: <span> ${abbrNum(this.props.data.volume,2)}</span></p>
+            <p>Supply: <span>${abbrNum(this.props.data.supply,2)}</span></p>
+            <p> Volume Weighted Price: <span>${roundNum(this.props.data.vwapData)}</span> </p>
+            <LineChart data={this.state.visData} cryptoName={this.props.data.short}/>
+          </div>
         </Collapse>
       </div>
     );

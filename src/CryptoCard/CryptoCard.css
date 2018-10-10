@@ -9,6 +9,24 @@
   overflow: hidden;
 }
 
+.card h2 {
+  font-size: 30px;
+  font-weight: 200;
+}
+
+.card h2 span {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.card:hover h2 span {
+  text-decoration: underline;
+}
+
+.card.selected {
+  box-shadow: 0px 0px 3px 2px #faff00;
+}
+
 .cardHeader {
   border-radius: 4px 4px 0 0;
   height: 28px;
@@ -43,4 +61,14 @@
   align-items: center;
   justify-content: center;
   flex-grow: 2;
+  flex-direction: column;
+}
+
+.summary div:nth-child(2) p {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.belowTheFold {
+  min-height: 370px;
 }

@@ -1,30 +1,15 @@
 /***************
 // Todos:
 //
-// add callback and state for selected crypto (25mins)
-// add yellow outline for selected to card and circle (25mins)
+// increase pageheight of grey background color
+// add yellow outline for  circle (25mins)
 // make best and worst clickable (15mins)
-// add scroll and open on select (20mins)
+// underline best, worst, and list cards on hover
 // add a yellow bar on the top thing (20mins)
-// add numbers one through fifty to crypto cards (15mins)
-// add "plus" to positive returns (10mins)
-//
-// 1. Add daily price change (with arrow SVG)
-// (1.5 hours)
-//
-// 2. Create expanded view for each card, with
-//      a) a few additional details
-//      c) timeseries chart
-// (3 hours)
-//
-// 3. Add interactive bubble chart
-// (3 hours)
-//
-// 4. Link the bubble chart to corresponding cards on scroll (with blue outline)
-// (1 hour)
-//
-// 5. Link crypto of the day
-// (30 mins)
+// use BEM style convention
+// split app into multiple components
+// add mandatory props
+// add fire emoji
 //
 // 7. Clean up design
 // (3 hours)
@@ -38,7 +23,6 @@ import CryptoOverview from './CryptoOverview/CryptoOverview'; // An overview of 
 import CardList from './CardList/CardList'; // A list of the top 50 cryptos
 import { interpolateColors } from './Utils/interpolateColors';
 import Collapse from 'react-collapse';
-import cx from 'classnames';
 
 export default class App extends Component {
   constructor(props) {
@@ -47,9 +31,11 @@ export default class App extends Component {
         bestPerformingCrypto: {long: "",perc: 0, color: "#FFFFFF"}, 
         worstPerformingCrypto: {long: "",perc: 0, color: "#FFFFFF"},
         isScrolling: false,
+        currentlySelectedCryptoID: null
       };
 
       this.handleScroll = this.handleScroll.bind(this);
+      this.onSelectCrypto = this.onSelectCrypto.bind(this);
   }
 
   componentDidMount() {
@@ -62,7 +48,7 @@ export default class App extends Component {
             // Filter in on top cryptos. 
             let topCryptos = data.slice(0,50);
 
-            // get rid of empr coin, there's something messed up about the API for this one
+            // These two lines of code get rid of empr coin. There's something messed up about the API for this crypto
             //const toDelete = new Set(['EMPR']);
             //topCryptos = topCryptos.filter(obj => !toDelete.has(obj.short));
 
@@ -78,21 +64,8 @@ export default class App extends Component {
               if(max === topCryptos[i].perc) bestPerformingCrypto = topCryptos[i]; // keep track of top performing crypto
               if(min === topCryptos[i].perc) worstPerformingCrypto = topCryptos[i]; // keep track of top performing crypto            
               topCryptos[i].color = interpolateColors("#4199F1","#F46720",((topCryptos[i].perc - min)/(max - min)));
-              console.log((topCryptos[i]));
-
             }
 
-            //              topCryptos[i].color = interpolateColors("#afceff","#16438c",((topCryptos[i].perc - min)/(max - min)));
-            // for (let i = 0; i < topCryptos.length; i++) {
-            // }
-              // console.log(topCryptos[i].short);
-              // console.log((topCryptos[i].perc - min)/max);
-
-
-            console.log(min);
-            console.log(max);
-            console.log(bestPerformingCrypto);
-            console.log(worstPerformingCrypto);
             // Filter down on the top 50 results and update state
             this.setState({cryptosData: topCryptos, bestPerformingCrypto: bestPerformingCrypto, worstPerformingCrypto: worstPerformingCrypto});
           });
@@ -106,13 +79,20 @@ export default class App extends Component {
     });
   }
 
+  onSelectCrypto(short) {
+    this.setState({
+      currentlySelectedCryptoID: short
+    });
+    console.log('select crypto called', short);
+  }
+
   render() {
 
       return (
           <div id="app">
             <div className="feed">
               <div className="header">
-                <h1> Daily Hot Cryptos </h1>
+                <h1> Daily Hot Cryptos <i class="em em-fire"></i> </h1>
                 <Collapse
                         isOpened={!this.state.isScrolling}
                         springConfig={{ stiffness: 200, damping: 23, precision: 0.2 }}>
@@ -123,37 +103,39 @@ export default class App extends Component {
                 <div  className="legend">
                   <div className="legendCard">
                     <h2>{this.state.worstPerformingCrypto.perc}%</h2>
-                    <p> worst return </p>
+                    <p> Worst Return </p>
                   </div>
                   <div className="colorBlock"> </div>
                   <div className="legendCard">
                     <h2>{this.state.bestPerformingCrypto.perc}%</h2>
-                    <p> best return </p>
+                    <p> Best Return </p>
                   </div>
                 </div>
                 <div className="dividerLine"> </div>
               </div>
-              <CardList data={this.state.cryptosData}/>
+              <CardList data={this.state.cryptosData} onSelectCrypto={this.onSelectCrypto} selectedCrypto={this.state.currentlySelectedCryptoID}/>
             </div>
-            <CryptoOverview data={this.state.cryptosData}/>
+            <CryptoOverview data={this.state.cryptosData} onSelectCrypto={this.onSelectCrypto} selectedCrypto={this.state.currentlySelectedCryptoID}/>
+            <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet" />
           </div>
       );
   }
 }
 
 // https://stackoverflow.com/questions/16491758/remove-objects-from-array-by-object-property
-const filterInPlace = (array, predicate) => {
-    let end = 0;
+// This util can be uncommented to remove messed up cryptos 
+// const filterInPlace = (array, predicate) => {
+//     let end = 0;
 
-    for (let i = 0; i < array.length; i++) {
-        const obj = array[i];
+//     for (let i = 0; i < array.length; i++) {
+//         const obj = array[i];
 
-        if (predicate(obj)) {
-            array[end++] = obj;
-        }
-    }
+//         if (predicate(obj)) {
+//             array[end++] = obj;
+//         }
+//     }
 
-    array.length = end;
-};
+//     array.length = end;
+// };
 
 
