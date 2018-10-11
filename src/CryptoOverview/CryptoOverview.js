@@ -23,15 +23,23 @@ export default class CryptoOverview extends Component {
 
   render() {
 
-	const bubbleData = this.props.data.map(d => ({
+	let bubbleData = this.props.data.map(d => ({
 	  label: d.short,
 	  value: d.mktcap,
-	  color: d.color
+	  color: d.color,
+	  selected: false
 	}));
+
+	for(let i=0; i < bubbleData.length; i++) {
+		if(bubbleData[i].label === this.props.selectedCrypto) {
+			bubbleData[i].selected = true;
+			console.log('selectedbub', bubbleData[i]);
+		}
+	}
 
 	return (
       <div className="overview" style={{padding: this.state.visHeight*.075+"px " +this.state.visWidth*.0625 +"px"}}>
-      	<div className="backgroundContainer">
+      	<div className="bubblePositioningContainer">
 	      	<div className="bubbleContainer">
 				<BubbleChart
 				  graph= {{

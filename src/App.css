@@ -88,13 +88,17 @@ h1 i {
   top: -2px;
 }
 
+html {
+  background-color: #DCDCDD;
+}
+
 #app {
   text-align: center;
   color: #DCDCDD;
-  background-color: #FFFFFF;
   display: flex;
   justify-content: flex-start;
   color: #46494C;
+
 }
 
 .feed {

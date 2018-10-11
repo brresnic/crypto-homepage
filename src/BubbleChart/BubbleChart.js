@@ -108,19 +108,20 @@ export default class BubbleChart extends Component {
     });
 
     node.append("circle")
+      .attr("id", function(d) { return (d.id+"__selectedState"); })
+      .attr("r", function(d) { return d.r - (d.r * .04) + 4; })
+      .style("fill", "#faff00")
+      .style("opacity",function(d){
+        if(d.data.selected) {return 1.0}
+        else {return 0}
+      })
+      .style("z-index", 0)
+
+    node.append("circle")
       .attr("id", function(d) { return d.id; })
       .attr("r", function(d) { return d.r - (d.r * .04); })
       .style("fill", function(d) { return d.data.color ? d.data.color : color(nodes.indexOf(d)); })
       .style("z-index", 1)
-      .on('mouseover', function(d) {
-        //d3.select(this).classed('hover', true);
-        //d3.select(this).attr("r", d.r * 1.00);
-      })
-      .on('mouseout', function(d) {
-        const r = d.r - (d.r * 0.04);
-        //d3.select(this).classed('hover', false);
-        //d3.select(this).attr("r", d.r * 1.00);
-      });
 
     node.append("clipPath")
       .attr("id", function(d) { return "clip-" + d.id; })

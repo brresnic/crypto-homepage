@@ -1,20 +1,11 @@
 /***************
 // Todos:
 //
-// increase pageheight of grey background color
-// add yellow outline for  circle (25mins)
-// make best and worst clickable (15mins)
-// underline best, worst, and list cards on hover
 // add a yellow bar on the top thing (20mins)
 // use BEM style convention
 // split app into multiple components
 // add mandatory props
-// add fire emoji
 //
-// 7. Clean up design
-// (3 hours)
-//
-// total: 12 hours
 ***************/
 
 import React, { Component } from 'react';
@@ -46,11 +37,11 @@ export default class App extends Component {
           return response.json();
       }).then( data => {
             // Filter in on top cryptos. 
-            let topCryptos = data.slice(0,50);
+            let topCryptos = data.slice(0,51);
 
-            // These two lines of code get rid of empr coin. There's something messed up about the API for this crypto
-            //const toDelete = new Set(['EMPR']);
-            //topCryptos = topCryptos.filter(obj => !toDelete.has(obj.short));
+            // These two lines of code gets rid of empr coin. There's something messed up about the API for this crypto
+            const toDelete = new Set(['EMPR']);
+            topCryptos = topCryptos.filter(obj => !toDelete.has(obj.short));
 
             let bestPerformingCrypto;
             let worstPerformingCrypto;
@@ -62,8 +53,9 @@ export default class App extends Component {
             
             for (let i = 0; i < topCryptos.length; i++) {
               if(max === topCryptos[i].perc) bestPerformingCrypto = topCryptos[i]; // keep track of top performing crypto
-              if(min === topCryptos[i].perc) worstPerformingCrypto = topCryptos[i]; // keep track of top performing crypto            
+              if(min === topCryptos[i].perc) worstPerformingCrypto = topCryptos[i]; // keep track of worst performing crypto            
               topCryptos[i].color = interpolateColors("#4199F1","#F46720",((topCryptos[i].perc - min)/(max - min)));
+              topCryptos[i].selected = false;
             }
 
             // Filter down on the top 50 results and update state
@@ -81,9 +73,8 @@ export default class App extends Component {
 
   onSelectCrypto(short) {
     this.setState({
-      currentlySelectedCryptoID: short
+      selectedCrypto: short
     });
-    console.log('select crypto called', short);
   }
 
   render() {
@@ -101,21 +92,21 @@ export default class App extends Component {
                   <p> Cyptos are listed in descending order by market cap. The bubble chart on the right is sized by market cap.</p>
                 </Collapse>
                 <div  className="legend">
-                  <div className="legendCard">
+                  <div className="legendCard" onClick={() => this.onSelectCrypto(this.state.worstPerformingCrypto.short)}>
                     <h2>{this.state.worstPerformingCrypto.perc}%</h2>
                     <p> Worst Return </p>
                   </div>
                   <div className="colorBlock"> </div>
-                  <div className="legendCard">
+                  <div className="legendCard" onClick={() => this.onSelectCrypto(this.state.bestPerformingCrypto.short)}>
                     <h2>{this.state.bestPerformingCrypto.perc}%</h2>
                     <p> Best Return </p>
                   </div>
                 </div>
                 <div className="dividerLine"> </div>
               </div>
-              <CardList data={this.state.cryptosData} onSelectCrypto={this.onSelectCrypto} selectedCrypto={this.state.currentlySelectedCryptoID}/>
+              <CardList data={this.state.cryptosData} onSelectCrypto={this.onSelectCrypto} selectedCrypto={this.state.selectedCrypto}/>
             </div>
-            <CryptoOverview data={this.state.cryptosData} onSelectCrypto={this.onSelectCrypto} selectedCrypto={this.state.currentlySelectedCryptoID}/>
+            <CryptoOverview data={this.state.cryptosData} onSelectCrypto={this.onSelectCrypto} selectedCrypto={this.state.selectedCrypto}/>
             <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet" />
           </div>
       );
