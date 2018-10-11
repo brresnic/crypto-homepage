@@ -1,8 +1,0 @@
-.CardList {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    position: relative;
-    top: 370px;
-    background-color: #FFFFFF;
-}

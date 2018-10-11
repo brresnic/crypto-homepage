@@ -1,17 +1,21 @@
 /***************
-// Todos:
+// Daily Hot Cryptos
 //
-// add a yellow bar on the top thing (20mins)
-// use BEM style convention
-// split app into multiple components
-// add mandatory props
+// a webpage which serves fundamental visualizations on various crypto assets.
+//
+// Allows users to 
+// 1) consume an overview of the most popular crypto assets and 
+// 2) drill into a specific crypto asset in order to see a more detailed visualization of its information.
+//
+// This particular implementation highlights daily changes in the price of assets.
 //
 ***************/
 
 import React, { Component } from 'react';
 import './App.css';
-import CryptoOverview from './CryptoOverview/CryptoOverview'; // An overview of cryptos
-import CardList from './CardList/CardList'; // A list of the top 50 cryptos
+import CryptoOverview from './Components/CryptoOverview/CryptoOverview'; // An overview of cryptos
+import CardList from './Components/CardList/CardList'; // A list of the top 50 cryptos
+import Legend from './Components/Legend/Legend'; // An interactive legend
 import { interpolateColors } from './Utils/interpolateColors';
 import Collapse from 'react-collapse';
 
@@ -39,7 +43,7 @@ export default class App extends Component {
             // Filter in on top cryptos. 
             let topCryptos = data.slice(0,51);
 
-            // These two lines of code gets rid of empr coin. There's something messed up about the API for this crypto
+            // These two lines of code gets rid of empr coin. There's something messed up about the API for that crypto
             const toDelete = new Set(['EMPR']);
             topCryptos = topCryptos.filter(obj => !toDelete.has(obj.short));
 
@@ -54,8 +58,7 @@ export default class App extends Component {
             for (let i = 0; i < topCryptos.length; i++) {
               if(max === topCryptos[i].perc) bestPerformingCrypto = topCryptos[i]; // keep track of top performing crypto
               if(min === topCryptos[i].perc) worstPerformingCrypto = topCryptos[i]; // keep track of worst performing crypto            
-              topCryptos[i].color = interpolateColors("#4199F1","#F46720",((topCryptos[i].perc - min)/(max - min)));
-              topCryptos[i].selected = false;
+              topCryptos[i].color = interpolateColors("#4199F1","#46e038",((topCryptos[i].perc - min)/(max - min))); // generate a color
             }
 
             // Filter down on the top 50 results and update state
@@ -80,29 +83,19 @@ export default class App extends Component {
   render() {
 
       return (
-          <div id="app">
-            <div className="feed">
-              <div className="header">
-                <h1> Daily Hot Cryptos <i class="em em-fire"></i> </h1>
+          <div className="app">
+            <div className="app__Feed">
+              <div className="app__Header">
+                <h1> Daily Hot Cryptos <i class="em em-money_with_wings"></i> </h1>
                 <Collapse
                         isOpened={!this.state.isScrolling}
                         springConfig={{ stiffness: 200, damping: 23, precision: 0.2 }}>
                   <p> Below, you'll find a list of the top 50 largest cryptos. Click on a crypto to learn more about it!</p>
                   <p> Each crypto is color coded according to it's daily return, relative it's peers.</p> 
-                  <p> Cyptos are listed in descending order by market cap. The bubble chart on the right is sized by market cap.</p>
+                  <p> Cryptos are listed in descending order by market cap. The bubble chart on the right is sized by market cap.</p>
                 </Collapse>
-                <div  className="legend">
-                  <div className="legendCard" onClick={() => this.onSelectCrypto(this.state.worstPerformingCrypto.short)}>
-                    <h2>{this.state.worstPerformingCrypto.perc}%</h2>
-                    <p> Worst Return </p>
-                  </div>
-                  <div className="colorBlock"> </div>
-                  <div className="legendCard" onClick={() => this.onSelectCrypto(this.state.bestPerformingCrypto.short)}>
-                    <h2>{this.state.bestPerformingCrypto.perc}%</h2>
-                    <p> Best Return </p>
-                  </div>
-                </div>
-                <div className="dividerLine"> </div>
+                <Legend bestPerforming={this.state.bestPerformingCrypto} worstPerforming={this.state.worstPerformingCrypto} onSelectCrypto={this.onSelectCrypto}/>
+                <div className="app__DividerLine"> </div>
               </div>
               <CardList data={this.state.cryptosData} onSelectCrypto={this.onSelectCrypto} selectedCrypto={this.state.selectedCrypto}/>
             </div>
@@ -112,21 +105,3 @@ export default class App extends Component {
       );
   }
 }
-
-// https://stackoverflow.com/questions/16491758/remove-objects-from-array-by-object-property
-// This util can be uncommented to remove messed up cryptos 
-// const filterInPlace = (array, predicate) => {
-//     let end = 0;
-
-//     for (let i = 0; i < array.length; i++) {
-//         const obj = array[i];
-
-//         if (predicate(obj)) {
-//             array[end++] = obj;
-//         }
-//     }
-
-//     array.length = end;
-// };
-
-

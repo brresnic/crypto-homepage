@@ -1,12 +1,14 @@
 .card {
   text-align: left;
-  min-width: 550px;
-  background-color: #DCDCDD;
+  width: 550px;
+  background-color: #efefef;
   color: #46494C;
   border-radius: 4px;
-  margin: 20px;
+  margin: 20px 40px;
   cursor: pointer;
   overflow: hidden;
+  position: relative;
+  top: 200px;
 }
 
 .card h2 {
@@ -27,12 +29,16 @@
   box-shadow: 0px 0px 3px 2px #faff00;
 }
 
-.cardHeader {
+.card.selected:hover h2 span {
+  text-decoration: none;
+}
+
+.card__Header {
   border-radius: 4px 4px 0 0;
   height: 28px;
 }
 
-.collapseIcon {
+.card__CollapseIcon {
   padding: 8px 16px;
 }
 
@@ -40,7 +46,7 @@
  * Set our base rotation style, knowing that any transition in state will have
  * a specific easing and will start at a rotation of `180`
  */
-.collapseIcon svg {
+.card__CollapseIcon svg {
   transform: rotate(0deg);
   transition: 0.3s all ease;
 }
@@ -48,15 +54,15 @@
 /**
  * Rotate our icon 180 degrees
  */
-.rotate svg {
+.card__Rotate svg {
   transform: rotate(180deg);
 }
 
-.summary {
+.card__Summary {
   display: flex;
 }
 
-.summary div:nth-child(2) {
+.card__Summary div:nth-child(2) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,11 +70,11 @@
   flex-direction: column;
 }
 
-.summary div:nth-child(2) p {
+.card__Summary div:nth-child(2) p {
   font-weight: 500;
   font-size: 14px;
 }
 
-.belowTheFold {
+.card__BelowTheFold {
   min-height: 370px;
 }

@@ -1,3 +1,9 @@
+/***************
+// LineChart
+// 
+// This component renders a line chart
+***************/
+
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import {default as UUID} from "node-uuid";
@@ -19,7 +25,7 @@ export default class LineChart extends Component {
               Highcharts.chart(this.id, {
           chart: {
               type: 'line',
-              backgroundColor: '#DCDCDD'
+              backgroundColor: '#efefef'
           },
           credits: {
             enabled: false
@@ -59,7 +65,7 @@ export default class LineChart extends Component {
           Highcharts.chart(this.id, {
           chart: {
               type: 'line',
-              backgroundColor: '#DCDCDD',
+              backgroundColor: '#efefef',
               height: 280
           },
           credits: {

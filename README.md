@@ -31,8 +31,10 @@ I made a judgement call that, for my design, these two features would do a bette
 
 If I were to continue working on this repo, some things I would do include:
 
-1. Use locally scoped style
+1. Refactor style
 2. Improve error handling (for example, while fetching data)
-3. Refactor components a bit for reusability/extensibility
+3. Refactor components for reusability/extensibility (for example, require certain props)
 4. Make the page responsive, and mobile friendly
 5. Add placeholder content while data is loading
+6. Add a yellow marker to the legend indicating the return of the currently selected crypto
+7. User test and address usability issues

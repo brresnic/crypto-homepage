@@ -1,3 +1,9 @@
+/***************
+// CardList
+// 
+// This component represents a list of cards, where each card describes a cryptocurrency.
+***************/
+
 import React, { Component } from 'react';
 import './CardList.css';
 import CryptoCard from '../CryptoCard'; // A card containing info on a crypto
@@ -20,10 +26,6 @@ export default class CardList extends Component {
 
         let scrollPosition;
         if(this.props.selectedCrypto != null) {
-            console.log('here');
-            console.log('current', this.state.cardElements[this.props.selectedCrypto][1]);
-            console.log('next',this.state.cardElements[nextProps.selectedCrypto][1]);
-
           if(this.state.cardElements[this.props.selectedCrypto][1] < this.state.cardElements[nextProps.selectedCrypto][1]) {
             console.log('here');
             scrollPosition = this.state.cardElements[nextProps.selectedCrypto][0].offsetTop - 235;
@@ -33,25 +35,14 @@ export default class CardList extends Component {
         } else {
           scrollPosition = this.state.cardElements[nextProps.selectedCrypto][0].offsetTop + 145;
         }
+        scrollPosition -= 200;
         
 
         scroll.scrollTo(scrollPosition, {
            duration: 300,
            smooth: "easeInOutQuint",
          });
-
-        // scroll.scrollTo(this.state.cardElements[nextProps.selectedCrypto].getBoundingClientRect().top, {
-        //   duration: 300,
-        //   smooth: "easeInOutQuint",
-        // });
       }
-      //window.scrollTo(210);// + this.state.cardElements[nextProps.selectedCrypto].getBoundingClientRect().top);
-      // scrollIntoView(this.state.cardElements[nextProps.selectedCrypto], {
-      //   time: 300,
-      //   align: {
-      //     top: .97
-      //   }
-      // });
     }
   }
 
@@ -89,7 +80,7 @@ export default class CardList extends Component {
       });
 
       return (
-          <div className="CardList">
+          <div className="cardList">
               {cards}
           </div>
       );

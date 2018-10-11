@@ -1,3 +1,9 @@
+/***************
+// CryptoOverview
+// 
+// The component provides a visual overview of the biggest cryptos
+***************/
+
 import React, { Component } from 'react';
 import BubbleChart from '../BubbleChart';
 import './CryptoOverview.css';
@@ -33,14 +39,14 @@ export default class CryptoOverview extends Component {
 	for(let i=0; i < bubbleData.length; i++) {
 		if(bubbleData[i].label === this.props.selectedCrypto) {
 			bubbleData[i].selected = true;
-			console.log('selectedbub', bubbleData[i]);
 		}
 	}
 
+	// Note: Having a few containers is helpful to properly size and position the bubble chart 
 	return (
       <div className="overview" style={{padding: this.state.visHeight*.075+"px " +this.state.visWidth*.0625 +"px"}}>
-      	<div className="bubblePositioningContainer">
-	      	<div className="bubbleContainer">
+      	<div className="overview__BubblePositioningContainer">
+	      	<div className="overview__BubbleContainer">
 				<BubbleChart
 				  graph= {{
 				    zoom: 1,

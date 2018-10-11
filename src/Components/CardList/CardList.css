@@ -1,0 +1,8 @@
+.cardList {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0 300px 0;
+    background-color: #FFFFFF;
+    position: relative;
+    top: 170px;
+}

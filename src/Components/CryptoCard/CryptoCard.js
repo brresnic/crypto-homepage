@@ -1,3 +1,10 @@
+/***************
+// CryptoCard
+// 
+// This component represents a card with info on a particular crypto. 
+// Cards can be opened or closed.
+***************/
+
 import React, { Component } from 'react';
 import './CryptoCard.css';
 import LineChart from '../LineChart';
@@ -46,21 +53,18 @@ export default class CryptoCard extends React.Component {
   }
 
   componentDidMount() {
-    console.log('i',this.id);
     let object = this.refs[this.id];
     this.props.registerCard(this.props.data.short, object, this.props.index);
-    //this.context.scroll.register();
   }
   componentWillUnmount() {
     this.props.unregisterCard(this.props.data.short);
-    //this.context.scroll.unregister(this.props.data.short);
   }
 
 
   componentWillReceiveProps(nextProps) {
     if(this.props.isSelected == true) {
       
-      // if the line visualization has been loaded yet, load it
+      // if the line visualization hasn't been loaded yet, load it
       if(!this.state.hasOpened) {
         fetch("http://coincap.io/history/"+this.props.data.short).then(response => {
           return response.json();
@@ -83,8 +87,8 @@ export default class CryptoCard extends React.Component {
   render() {
 
     const arrowStyle = cx({
-      'collapseIcon': true,
-      'rotate': this.props.isSelected,
+      'card__CollapseIcon': true,
+      'card__Rotate': this.props.isSelected,
     });
 
     const cardStyle = cx({
@@ -94,12 +98,12 @@ export default class CryptoCard extends React.Component {
 
     return (
       <div ref={this.id} className={cardStyle} onClick={() => this.props.isSelected ? this.props.onSelectCrypto(null) : this.props.onSelectCrypto(this.props.data.short)}>
-        <div style={{backgroundColor: this.props.data.color}} className='cardHeader'>
+        <div style={{backgroundColor: this.props.data.color}} className='card__Header'>
           <div className={arrowStyle}>
             <ArrowIcon stroke={'#FFFFFF'} />
           </div>
         </div>
-        <div className="summary">
+        <div className="card__Summary">
           <div>
             <h2>{(this.props.index + 1)}. <span>{this.props.data.long} ({this.props.data.short})</span></h2>
             <p>Market Cap:<span> ${abbrNum(this.props.data.mktcap,2)}</span></p>
@@ -114,7 +118,7 @@ export default class CryptoCard extends React.Component {
         <Collapse
           isOpened={this.props.isSelected}
           springConfig={{ stiffness: 200, damping: 23, precision: 0.2 }}>
-          <div className='belowTheFold'>
+          <div className='card__BelowTheFold'>
             <p>Volume: <span> ${abbrNum(this.props.data.volume,2)}</span></p>
             <p>Supply: <span>${abbrNum(this.props.data.supply,2)}</span></p>
             <p> Volume Weighted Price: <span>${roundNum(this.props.data.vwapData)}</span> </p>
