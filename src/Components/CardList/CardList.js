@@ -15,7 +15,6 @@ export default class CardList extends Component {
       super(props);
 
       this.state = {cardElements: []};
-
       this.registerCard = this.registerCard.bind(this);
       this.unregisterCard = this.unregisterCard.bind(this);
   }
@@ -27,7 +26,6 @@ export default class CardList extends Component {
         let scrollPosition;
         if(this.props.selectedCrypto != null) {
           if(this.state.cardElements[this.props.selectedCrypto][1] < this.state.cardElements[nextProps.selectedCrypto][1]) {
-            console.log('here');
             scrollPosition = this.state.cardElements[nextProps.selectedCrypto][0].offsetTop - 235;
           } else {
             scrollPosition = this.state.cardElements[nextProps.selectedCrypto][0].offsetTop + 145;
@@ -37,7 +35,6 @@ export default class CardList extends Component {
         }
         scrollPosition -= 200;
         
-
         scroll.scrollTo(scrollPosition, {
            duration: 300,
            smooth: "easeInOutQuint",

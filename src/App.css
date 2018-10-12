@@ -1,14 +1,6 @@
 @font-face {
   font-family: 'Plex';
   font-style: normal;
-  font-weight: 700;
-  src:
-    url(./Fonts/PlexSans-Bold.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'Plex';
-  font-style: normal;
   font-weight: 100;
   src:
     url(./Fonts/PlexSans-Thin.woff) format('woff');
@@ -36,6 +28,14 @@
   font-weight: 500;
   src:
     url(./Fonts/PlexSans-Medium.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Plex';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    url(./Fonts/PlexSans-Bold.woff) format('woff');
 }
 
 html {

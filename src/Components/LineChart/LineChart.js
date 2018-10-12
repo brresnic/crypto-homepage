@@ -1,7 +1,7 @@
 /***************
 // LineChart
 // 
-// This component renders a line chart
+// This component renders a line chart, using the Highcharts API
 ***************/
 
 import React, { Component } from 'react';

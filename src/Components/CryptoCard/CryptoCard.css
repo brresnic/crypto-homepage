@@ -42,18 +42,11 @@
   padding: 8px 16px;
 }
 
-/**
- * Set our base rotation style, knowing that any transition in state will have
- * a specific easing and will start at a rotation of `180`
- */
 .card__CollapseIcon svg {
   transform: rotate(0deg);
   transition: 0.3s all ease;
 }
 
-/**
- * Rotate our icon 180 degrees
- */
 .card__Rotate svg {
   transform: rotate(180deg);
 }

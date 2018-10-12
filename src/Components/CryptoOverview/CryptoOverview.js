@@ -42,7 +42,7 @@ export default class CryptoOverview extends Component {
 		}
 	}
 
-	// Note: Having a few containers is helpful to properly size and position the bubble chart 
+	// Note: Having a few containers proved to be helpful in order to properly size and position the bubble chart 
 	return (
       <div className="overview" style={{padding: this.state.visHeight*.075+"px " +this.state.visWidth*.0625 +"px"}}>
       	<div className="overview__BubblePositioningContainer">
