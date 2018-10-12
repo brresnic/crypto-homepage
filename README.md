@@ -27,7 +27,7 @@ I implemented this project as a single page app. I did not implement a specializ
 
 I also did not include icons for each cryptocurrency. Instead, I prioritized creating a bubble chart. 
 
-My goal was to fulfill the intent of the prompt, while delivering the best user experience possible, within the time that I had.   
+My goal was to fulfill the intent of the prompt, while delivering the best user experience possible, within the time that I had available.   
 
 ## TODOs
 
