@@ -2,7 +2,7 @@
 
 This project enables users to 
 1) consume an overview of the most popular crypto assets 
-2) drill into a specific crypto asset in order to see a more detailed visualization of its information.
+2) drill into a specific crypto asset in order to see a more detailed visualization
 
 ## Instructions on how to setup and serve the webpage
 
@@ -19,6 +19,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page consists of a legend, bubble chart, and list of cryptos. Click on the legend, a crypto, or a bubble to see further details.
 
+Cryptos are colorcoded according to 
+
 ## A note on requirements versus implementation
 
 I implemented this project as a single page app. I did not implement a specialized page for each crypto asset, and instead implemented expandable cards. I think this creates a better experience for my design. 
@@ -29,13 +31,14 @@ I also did not include icons for each cryptocurrency. Instead, I prioritized cre
 
 If I were to continue working on this repo, some things I would do include:
 
-1. Refactor style
-2. Improve error handling (for example, while fetching data)
-3. Refactor components for reusability/extensibility (for example, require certain props)
-4. Make the page responsive, and mobile friendly
-5. Add placeholder content while data is loading
-6. Add a yellow marker to the legend indicating the return of the currently selected crypto
-7. User test and address usability issues
+1. Add icons (using https://static.coincap.io/assets/icons/cryptoasset@2x.png)
+2. Add a yellow marker to the legend indicating the return of the currently selected crypto
+3. Refactor style
+4. Improve error handling (for example, while fetching data)
+5. Refactor components for reusability/extensibility (for example, require certain props)
+6. Make the page responsive, and mobile friendly
+7. Add placeholder content while data is loading, and resize/center the loading icon
+8. User test and address identified usability issues
 
 ## Misc notes
 
