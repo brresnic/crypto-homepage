@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "ajv": "^6.5.4",
     "classnames": "^2.2.6",
     "d3": "^4.13.0",
     "highcharts": "^6.1.4",
