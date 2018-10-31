@@ -1,4 +1,4 @@
-# Daily Hot Cryptos Code/Design Challenge
+# Daily Hot Cryptos
 
 This project enables users to 
 1) consume an overview of the most popular crypto assets 
@@ -21,14 +21,7 @@ The page consists of a legend, bubble chart, and list of cryptos. Click on the l
 
 Cryptos are colorcoded according to their daily change in value, as determined by coincap.io
 
-## A note on requirements versus implementation
-
-I implemented this project as a single page app. I did not implement a specialized page for each crypto asset, and instead implemented expandable cards. I think this creates a better experience for my design. 
-
-I also did not include icons for each cryptocurrency. Instead, I prioritized creating a bubble chart. 
-
-My goal was to fulfill the intent of the prompt, while delivering the best user experience possible, within the time that I had available.   
-
+ 
 ## TODOs
 
 If I were to continue working on this repo, some things I would do include:
