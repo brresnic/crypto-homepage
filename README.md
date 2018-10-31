@@ -24,7 +24,7 @@ Cryptos are colorcoded according to their daily change in value, as determined b
  
 ## TODOs
 
-If I were to continue working on this repo, some things I would do include:
+When I get around to continuing working on this repo, some things I'll do include:
 
 1. Add icons (using https://static.coincap.io/assets/icons/cryptoasset@2x.png)
 2. Add a yellow marker to the legend indicating the return of the currently selected crypto
@@ -34,6 +34,7 @@ If I were to continue working on this repo, some things I would do include:
 6. Make the page responsive, and mobile friendly
 7. Add placeholder content while data is loading, and resize/center the loading icon
 8. User test and address identified usability issues
+9. Resolve a babel-eslint versioning conflict with the npm modules
 
 ## Misc notes
 
