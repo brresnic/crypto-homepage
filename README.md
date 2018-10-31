@@ -38,4 +38,3 @@ If I were to continue working on this repo, some things I would do include:
 ## Misc notes
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-The project is also hosted here: https://github.com/brresnic/crypto-homepage
