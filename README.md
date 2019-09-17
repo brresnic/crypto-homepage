@@ -1,6 +1,6 @@
 # Daily Hot Cryptos
 
-This project enables users to 
+This project, created in the evenings over the course of a week, enables users to 
 1) consume an overview of the most popular crypto assets 
 2) drill into a specific crypto asset in order to see a more detailed visualization
 
